@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -17,7 +16,7 @@ const WelcomePage = () => {
       <div className="w-full text-center">
         <div className="text-4xl font-bold mb-2 text-primary">VerifiedLearn</div>
         <div className="flex items-center justify-center">
-          <span className="text-sm text-muted-foreground">Verified Trading Education</span>
+          <span className="text-sm text-muted-foreground">Verified  Education</span>
         </div>
       </div>
 
@@ -26,11 +25,7 @@ const WelcomePage = () => {
         <div className="w-full max-w-md aspect-square rounded-2xl overflow-hidden mb-8 bg-muted relative">
           {/* Hero image showing the app in use */}
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90"></div>
-          <img 
-            src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" 
-            alt="Learning and Education" 
-            className="w-full h-full object-cover" 
-          />
+          <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Learning and Education" className="w-full h-full object-cover" />
           
           {/* Overlay text */}
           <div className="absolute bottom-8 left-0 right-0 text-center">
@@ -52,4 +47,3 @@ const WelcomePage = () => {
     </div>;
 };
 export default WelcomePage;
-
