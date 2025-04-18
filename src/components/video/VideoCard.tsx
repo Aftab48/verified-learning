@@ -4,13 +4,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ThumbsUp, ThumbsDown, MessageSquare, Bookmark, MoreVertical, CheckCircle, ExternalLink, Flag } from "lucide-react";
+import { ThumbsUp, ThumbsDown, MessageSquare, Bookmark, MoreVertical, CheckCircle, ExternalLink, Flag, BookmarkCheck } from "lucide-react";
 import { 
   DropdownMenu, 
   DropdownMenuTrigger, 
   DropdownMenuContent, 
   DropdownMenuItem 
 } from "@/components/ui/dropdown-menu";
+import { useToast } from "@/hooks/use-toast";
 
 interface VideoCardProps {
   id: string;
@@ -45,6 +46,7 @@ const VideoCard = ({
   const [bookmarked, setBookmarked] = useState(false);
   const [likeCount, setLikeCount] = useState(likes);
   const [dislikeCount, setDislikeCount] = useState(dislikes);
+  const { toast } = useToast();
 
   const handleVideoClick = () => {
     const video = document.getElementById(`video-${id}`) as HTMLVideoElement;
@@ -92,8 +94,19 @@ const VideoCard = ({
     }
   };
 
-  const handleBookmark = () => {
-    setBookmarked(!bookmarked);
+  const handleSaveVideo = () => {
+    setBookmarked(true);
+    toast({
+      title: "Video saved",
+      description: "This video has been added to your saved videos.",
+    });
+  };
+
+  const handleSaveCourse = () => {
+    toast({
+      title: "Course saved",
+      description: "This course has been added to your saved courses.",
+    });
   };
 
   return (
@@ -191,14 +204,33 @@ const VideoCard = ({
           </div>
           
           <div className="flex flex-col items-center">
-            <Button 
-              size="icon" 
-              variant={bookmarked ? "default" : "secondary"} 
-              className={`rounded-full ${bookmarked ? 'bg-primary' : 'bg-black/50 backdrop-blur-md'}`}
-              onClick={handleBookmark}
-            >
-              <Bookmark className={`h-5 w-5 ${bookmarked ? 'fill-white' : ''}`} />
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  size="icon" 
+                  variant={bookmarked ? "default" : "secondary"}
+                  className={`rounded-full ${bookmarked ? 'bg-primary' : 'bg-black/50 backdrop-blur-md'}`}
+                >
+                  <Bookmark className={`h-5 w-5 ${bookmarked ? 'fill-white' : ''}`} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="bg-black/90 text-white border-white/20 backdrop-blur-lg">
+                <DropdownMenuItem 
+                  className="flex items-center cursor-pointer hover:bg-white/10"
+                  onClick={handleSaveVideo}
+                >
+                  <Bookmark className="mr-2 h-4 w-4" />
+                  <span>Save video</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem 
+                  className="flex items-center cursor-pointer hover:bg-white/10"
+                  onClick={handleSaveCourse}
+                >
+                  <BookmarkCheck className="mr-2 h-4 w-4" />
+                  <span>Save related course</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <span className="text-xs text-white mt-1">Save</span>
           </div>
 
@@ -212,8 +244,8 @@ const VideoCard = ({
                 <MoreVertical className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem className="flex items-center cursor-pointer">
+            <DropdownMenuContent align="end" className="bg-black/90 text-white border-white/20 backdrop-blur-lg">
+              <DropdownMenuItem className="flex items-center cursor-pointer hover:bg-white/10">
                 <Flag className="mr-2 h-4 w-4" />
                 <span>Report content</span>
               </DropdownMenuItem>
