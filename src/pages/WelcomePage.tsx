@@ -16,7 +16,7 @@ const WelcomePage = () => {
       <div className="w-full text-center">
         <div className="text-4xl font-bold mb-2 text-primary">VerifiedLearn</div>
         <div className="flex items-center justify-center">
-          <span className="text-sm text-muted-foreground">Verified  Education</span>
+          <span className="text-sm text-muted-foreground">Verified Education</span>
         </div>
       </div>
 
