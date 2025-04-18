@@ -22,6 +22,7 @@ const RegisterForm = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     password: "",
     confirmPassword: "",
   });
@@ -53,7 +54,11 @@ const RegisterForm = () => {
         title: "Registration successful!",
         description: "Welcome to VerifiedLearn",
       });
-      localStorage.setItem("user", JSON.stringify({ name: formData.name, email: formData.email }));
+      localStorage.setItem("user", JSON.stringify({ 
+        name: formData.name, 
+        email: formData.email,
+        phone: formData.phone 
+      }));
       localStorage.setItem("isAuthenticated", "true");
       setIsLoading(false);
       navigate("/feed");
@@ -90,6 +95,18 @@ const RegisterForm = () => {
               placeholder="Enter your email" 
               required
               value={formData.email}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="phone">Phone Number</Label>
+            <Input 
+              id="phone"
+              name="phone"
+              type="tel" 
+              placeholder="Enter your phone number" 
+              required
+              value={formData.phone}
               onChange={handleChange}
             />
           </div>
