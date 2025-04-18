@@ -4,16 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Settings, LogOut, Heart, BookmarkCheck, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Settings, LogOut, Heart, BookmarkCheck, UserPlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { theme, setTheme } = useTheme();
   
   useEffect(() => {
     // Check authentication status
@@ -36,6 +36,14 @@ const ProfilePage = () => {
     navigate("/");
   };
 
+  const handleApplyAsCreator = () => {
+    toast({
+      title: "Creator Application",
+      description: "Your application to become a creator is under review.",
+      variant: "default"
+    });
+  };
+
   if (!isAuthenticated || !user) return null;
 
   return (
@@ -43,16 +51,12 @@ const ProfilePage = () => {
       <header className="flex items-center justify-between p-4 bg-background">
         <h1 className="text-xl font-semibold">Profile</h1>
         <div className="flex">
-          <Button
-            variant="ghost"
+          <Button 
+            variant="ghost" 
             size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            onClick={handleApplyAsCreator}
           >
-            {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
+            <UserPlus className="h-5 w-5" />
           </Button>
           <Button 
             variant="ghost" 
@@ -110,3 +114,4 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
