@@ -7,6 +7,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { CheckCircle, Star } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { TrialStatus } from "@/components/subscription/TrialStatus";
 
 // Mock data for courses
 const FEATURED_COURSES = [
@@ -74,6 +75,9 @@ const CoursesPage = () => {
       <header className="p-4 bg-background">
         <h1 className="text-xl font-semibold">Courses</h1>
         <p className="text-sm text-muted-foreground">Verified educational content</p>
+        <div className="mt-4">
+          <TrialStatus />
+        </div>
       </header>
       
       {/* Categories */}

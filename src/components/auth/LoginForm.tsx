@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -13,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/lib/supabase";
 
 const LoginForm = () => {
   const { toast } = useToast();
@@ -33,27 +33,55 @@ const LoginForm = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // TODO: For MVP we'll mock the login process
-    // In a real implementation, this would connect to an authentication service
-    setTimeout(() => {
-      // Demo account for easy testing
-      if (formData.email === "demo@verifiedlearn.com" && formData.password === "demo1234") {
+    if (formData.email === "demo@verifiedlearn.com" && formData.password === "demo1234") {
+      toast({
+        title: "Login successful!",
+        description: "Welcome back to VerifiedLearn",
+      });
+      localStorage.setItem("user", JSON.stringify({ name: "Demo User", email: formData.email }));
+      localStorage.setItem("isAuthenticated", "true");
+      navigate("/feed");
+    } else {
+      const { data: { user }, error: signInError } = await supabase.auth.signInWithPassword({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (signInError) {
+        toast({
+          title: "Login failed",
+          description: signInError.message,
+          variant: "destructive",
+        });
+        setIsLoading(false);
+        return;
+      }
+
+      if (user) {
+        const { data: subscriptionData } = await supabase
+          .from('user_subscriptions')
+          .select('id')
+          .eq('user_id', user.id)
+          .single();
+
+        if (!subscriptionData) {
+          const { error: subscriptionError } = await supabase
+            .from('user_subscriptions')
+            .insert([{ user_id: user.id }]);
+
+          if (subscriptionError) {
+            console.error('Error creating subscription:', subscriptionError);
+          }
+        }
+
         toast({
           title: "Login successful!",
           description: "Welcome back to VerifiedLearn",
         });
-        localStorage.setItem("user", JSON.stringify({ name: "Demo User", email: formData.email }));
-        localStorage.setItem("isAuthenticated", "true");
         navigate("/feed");
-      } else {
-        toast({
-          title: "Login failed",
-          description: "For demo, use demo@verifiedlearn.com / demo1234",
-          variant: "destructive",
-        });
       }
-      setIsLoading(false);
-    }, 1000);
+    }
+    setIsLoading(false);
   };
 
   return (
