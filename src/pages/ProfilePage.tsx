@@ -1,22 +1,19 @@
-
 import BottomNav from "@/components/layout/BottomNav";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Settings, LogOut, Heart, BookmarkCheck, UserPlus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { useToast } from "@/components/ui/use-toast";
+import CreatorApplicationForm from "@/components/creator/CreatorApplicationForm";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isCreatorFormOpen, setIsCreatorFormOpen] = useState(false);
   
   useEffect(() => {
-    // Check authentication status
     const authStatus = localStorage.getItem("isAuthenticated") === "true";
     setIsAuthenticated(authStatus);
     
@@ -37,11 +34,7 @@ const ProfilePage = () => {
   };
 
   const handleApplyAsCreator = () => {
-    toast({
-      title: "Creator Application",
-      description: "Your application to become a creator is under review.",
-      variant: "default"
-    });
+    setIsCreatorFormOpen(true);
   };
 
   if (!isAuthenticated || !user) return null;
@@ -108,10 +101,14 @@ const ProfilePage = () => {
         </TabsContent>
       </Tabs>
       
+      <CreatorApplicationForm 
+        isOpen={isCreatorFormOpen}
+        onClose={() => setIsCreatorFormOpen(false)}
+      />
+      
       <BottomNav />
     </div>
   );
 };
 
 export default ProfilePage;
-
