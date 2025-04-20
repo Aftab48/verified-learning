@@ -1,4 +1,3 @@
-
 import BottomNav from "@/components/layout/BottomNav";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -52,7 +51,7 @@ const FEATURED_COURSES = [
   }
 ];
 
-const CATEGORIES = ["Trading", "Technical Analysis", "Fundamental Analysis", "Crypto", "Forex", "Options", "Strategies"];
+const CATEGORIES = ["Trading", "Technical Analysis", "Fundamental Analysis", "Forex", "Options", "Strategies"];
 
 const CoursesPage = () => {
   const navigate = useNavigate();
