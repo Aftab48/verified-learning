@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -42,43 +43,52 @@ const LoginForm = () => {
       localStorage.setItem("isAuthenticated", "true");
       navigate("/feed");
     } else {
-      const { data: { user }, error: signInError } = await supabase.auth.signInWithPassword({
-        email: formData.email,
-        password: formData.password,
-      });
-
-      if (signInError) {
-        toast({
-          title: "Login failed",
-          description: signInError.message,
-          variant: "destructive",
+      try {
+        const { data, error: signInError } = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password,
         });
-        setIsLoading(false);
-        return;
-      }
 
-      if (user) {
-        const { data: subscriptionData } = await supabase
-          .from('user_subscriptions')
-          .select('id')
-          .eq('user_id', user.id)
-          .single();
-
-        if (!subscriptionData) {
-          const { error: subscriptionError } = await supabase
-            .from('user_subscriptions')
-            .insert([{ user_id: user.id }]);
-
-          if (subscriptionError) {
-            console.error('Error creating subscription:', subscriptionError);
-          }
+        if (signInError) {
+          toast({
+            title: "Login failed",
+            description: signInError.message,
+            variant: "destructive",
+          });
+          setIsLoading(false);
+          return;
         }
 
+        if (data.user) {
+          const { data: subscriptionData } = await supabase
+            .from('user_subscriptions')
+            .select('id')
+            .eq('user_id', data.user.id)
+            .single();
+
+          if (!subscriptionData) {
+            const { error: subscriptionError } = await supabase
+              .from('user_subscriptions')
+              .insert([{ user_id: data.user.id }]);
+
+            if (subscriptionError) {
+              console.error('Error creating subscription:', subscriptionError);
+            }
+          }
+
+          toast({
+            title: "Login successful!",
+            description: "Welcome back to VerifiedLearn",
+          });
+          navigate("/feed");
+        }
+      } catch (error) {
+        console.error('Login error:', error);
         toast({
-          title: "Login successful!",
-          description: "Welcome back to VerifiedLearn",
+          title: "Login error",
+          description: "An unexpected error occurred. Please try again.",
+          variant: "destructive",
         });
-        navigate("/feed");
       }
     }
     setIsLoading(false);
