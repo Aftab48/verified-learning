@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -25,13 +26,13 @@ const WelcomePage = () => {
         <div className="w-full max-w-md aspect-square rounded-2xl overflow-hidden mb-8 bg-muted relative">
           {/* Hero image showing the app in use */}
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/90"></div>
-          <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Learning and Education" className="w-full h-full object-cover" />
-          
-          {/* Overlay text */}
-          <div className="absolute bottom-8 left-0 right-0 text-center">
-            <h1 className="text-2xl font-bold mb-4">Learn from<br />Verified Experts</h1>
-            <p className="text-sm px-8 text-center text-muted-foreground">Access education from verified professionals with proven track records</p>
-          </div>
+          <img
+            src="/public/lovable-uploads/0a413cf5-f062-4890-ad15-8908615bb7a5.png"
+            alt="Educational Courses by Verified Professionals"
+            className="w-full h-full object-cover"
+          />
+
+          {/* Overlay text - REMOVED because image already has branded text */}
         </div>
       </div>
 
