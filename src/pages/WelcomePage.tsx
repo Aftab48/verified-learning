@@ -1,4 +1,3 @@
-
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +28,7 @@ const WelcomePage = () => {
         <div className="w-full max-w-md aspect-square rounded-2xl overflow-hidden mb-8 bg-muted relative">
           <img src="/public/lovable-uploads/0a413cf5-f062-4890-ad15-8908615bb7a5.png" alt="Educational Courses by Verified Professionals" className="w-full h-full object-cover" />
           {/* Overlay for illustration */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-background/80" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/25 to-background/80 px-[6px] py-[5px]" />
           <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center px-8"></div>
         </div>
       </div>
