@@ -16,7 +16,7 @@ const WelcomePage = () => {
       {/* Logo and Branding */}
       <div className="w-full text-center flex flex-col items-center">
         <img
-          src="/images/home-1.jpg"
+          src="/images/home-2.jpg"
           alt="Hard Knock Club Logo"
           style={{
             filter: "drop-shadow(0 2px 12px #9b87f555)",
@@ -37,7 +37,7 @@ const WelcomePage = () => {
       <div className="flex flex-col items-center justify-center w-full flex-grow py-8">
         <div className="w-full max-w-md aspect-square rounded-2xl overflow-hidden mb-8 bg-muted relative">
           <img
-            src="/images/home-2.jpg"
+            src="/images/home-1.jpg"
             alt="Educational Courses by Verified Professionals"
             className="w-full h-full object-cover"
           />
