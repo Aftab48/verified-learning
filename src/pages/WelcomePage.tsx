@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +17,7 @@ const WelcomePage = () => {
       <div className="w-full text-center flex flex-col items-center">
         <img src="/public/lovable-uploads/a16517d7-3abc-4a29-ba26-ad81823fbb6a.png" alt="Hard Knock Club Logo" style={{
         filter: "drop-shadow(0 2px 12px #9b87f555)"
-      }} className="w-32 h-32 mx-auto mb-2 object-scale-down" />
+      }} className="w-20 h-20 mx-auto mb-2 object-scale-down" />
         <div className="text-4xl font-bold mb-2 text-primary">VerifiedLearn</div>
         <div className="flex items-center justify-center">
           <span className="text-sm text-muted-foreground">Verified Education</span>
